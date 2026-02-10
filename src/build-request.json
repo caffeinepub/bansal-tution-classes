@@ -1,0 +1,154 @@
+{
+  "kind": "build_request",
+  "title": "Add teacher-managed payment settings and editable timetable",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-14",
+      "text": "Persist teacher-managed payment settings in the Motoko backend so the teacher/admin can add or change the payment receiving account details used by the Pay Fees screen.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-7"
+        ],
+        "quotes": [
+          "I HAVE ACCESS TO ADD OR OF MINE ACCOUNT AND CHANGE IT OR ADD IT FOR PAYMENT"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes query method(s) to fetch the current payment settings.",
+        "Backend exposes update method(s) to save payment settings changes.",
+        "Payment settings are stored in stable state so they remain after canister upgrades/redeploys.",
+        "If no payment settings have been configured yet, backend returns sensible defaults compatible with the existing Pay Fees flow (UPI deep link)."
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "text": "Add an Admin UI screen for Payment Settings that lets the teacher/admin view and update the payment receiving account details (at minimum: UPI VPA/ID for `pa` and payee name for `pn`) and save them to the backend.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-7"
+        ],
+        "quotes": [
+          "I HAVE ACCESS TO ADD OR OF MINE ACCOUNT AND CHANGE IT OR ADD IT FOR PAYMENT"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Teacher Admin area includes a clear navigation option to a new Payment Settings screen (not a placeholder modal).",
+        "Payment Settings screen loads the current payment settings from the backend and populates the form.",
+        "Teacher/admin can edit the UPI VPA/ID (`pa`) and payee name (`pn`) and save changes.",
+        "On successful save, show an English success message/toast and the new settings remain after page refresh.",
+        "Basic validation prevents saving empty/invalid values and shows an English error message near the relevant field(s)."
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "text": "Update the Pay Fees screen to use the latest teacher-configured payment settings from the backend when generating the UPI deep link, instead of hardcoding `pa=yourupi@bank` and `pn=Bansal Tution Classes`.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-7"
+        ],
+        "quotes": [
+          "CHANGE IT OR ADD IT FOR PAYMENT"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Pay Fees screen fetches payment settings from backend and uses them when generating the payment URI.",
+        "If settings are still loading, the Pay Fees screen shows a reasonable loading state and does not generate a broken link.",
+        "If backend has no configured settings, the Pay Fees screen continues to work using the existing default behavior.",
+        "The amount-entry validation behavior already present on the Pay Fees screen continues to work as before."
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "text": "Persist a teacher-managed timetable in the Motoko backend so the teacher/admin can adjust the timetable from within the app and students see the updated timetable.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-7"
+        ],
+        "quotes": [
+          "THE TIMETABLE SHOULD BE ADDGEST BY ME"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes query method(s) to fetch the current timetable entries.",
+        "Backend exposes update method(s) to replace or update the timetable entries.",
+        "Timetable is stored in stable state so it remains after canister upgrades/redeploys.",
+        "If no timetable has been configured yet, backend returns defaults matching the current static timetable shown in the app."
+      ]
+    },
+    {
+      "id": "REQ-18",
+      "text": "Add an Admin Timetable Editor screen that allows the teacher/admin to add, edit, and remove timetable entries (day, subject, time) and save them to the backend.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-7"
+        ],
+        "quotes": [
+          "THE TIMETABLE SHOULD BE ADDGEST BY ME"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Teacher Admin area includes a clear navigation option to a new Timetable Editor screen (not a placeholder modal).",
+        "Timetable Editor loads current timetable entries from the backend and displays them in an editable form/list.",
+        "Teacher/admin can add new entries, edit existing entries, and remove entries.",
+        "Saving writes the updated timetable to the backend and shows an English success message/toast.",
+        "Basic validation prevents saving entries with missing day/subject/time and shows English error text."
+      ]
+    },
+    {
+      "id": "REQ-19",
+      "text": "Update the Timetable screen to render timetable data fetched from the backend (teacher-managed) instead of the current hardcoded `schedule` array.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-7"
+        ],
+        "quotes": [
+          "THE TIMETABLE SHOULD BE ADDGEST BY ME"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Timetable screen fetches timetable entries from the backend and displays them in the existing styled card format.",
+        "If timetable data is loading, the screen shows a reasonable loading state.",
+        "If backend returns an empty timetable, display an English empty-state message (e.g., 'No timetable has been set yet.').",
+        "After the teacher/admin updates the timetable via the editor, the Timetable screen reflects the changes after refresh (and ideally after navigation back)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not edit files under frontend/src/components/ui (read-only UI component sources). Compose existing components instead.",
+    "Respect the single-actor Motoko backend architecture; keep all backend logic in backend/main.mo.",
+    "Use English for all user-facing text.",
+    "Do not modify the immutable frontend hook files listed in SYSTEM_CONTEXT (compose around them)."
+  ],
+  "nonGoals": [
+    "Implementing real Razorpay API integration/checkout, server-side order creation, or payment verification.",
+    "Adding third-party authentication providers (only existing session/II infrastructure is available).",
+    "Real-time updates via WebSockets/push notifications."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

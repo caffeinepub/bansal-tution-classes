@@ -1,0 +1,241 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 7,
+  "summary": "Tuition Classes app: includes student dashboard and teacher/admin panel. Pay Fees flow is shifting from a static UPI deep link toward Razorpay payment link, and the teacher/admin should be able to manage (change) the payment account/link and update the timetable themselves.",
+  "architectural_notes": [
+    "Built with Flutter Material 3; app navigation uses Navigator with MaterialPageRoute between screens.",
+    "Uses url_launcher for external intents: UPI payment URI and WhatsApp wa.me link.",
+    "Current UI uses static/hardcoded content for notes, timetable, and announcements (no backend/persistence shown).",
+    "Pay Fees UPI deep link should support dynamic amount entry and use payee display name \"Bansal Tution Classes\" (and teacher UPI ID) rather than a fixed amount.",
+    "Payment method direction discussed: use Razorpay Payment Link instead of the old static UPI deep link; the link/account should be configurable by the teacher/admin.",
+    "Open decision: admin changes (payment settings, timetable) need a persistence strategy (local-only on one device vs online sync across devices)."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-build-a-react-web-app-that-mirrors-the-provided-flutter-tuition-classes-app-flow-a-login-screen-that-leads-to-a-student-dashboard-with-navigation-to-notes-timetable-announcements-pay-fees-contact-teacher-and-teacher-admin-screens",
+      "title": "Build a React web app that mirrors the provided Flutter “Tuition Classes App” flow: a Login screen that leads to a Student Dashboard with navigation to Notes, Timetable, Announcements, Pay Fees, Contact Teacher, and Teacher Admin screens.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-login-screen-ui-with-two-inputs-name-password-and-a-login-action-that-creates-a-simple-local-session-front-end-state-and-routes-to-the-student-dashboard-no-third-party-authentication-is-required",
+      "title": "Implement the Login screen UI with two inputs (Name, Password) and a Login action that creates a simple local session (front-end state) and routes to the Student Dashboard. No third-party authentication is required.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-the-student-dashboard-page-as-a-list-of-navigable-tiles-cards-with-the-following-destinations-notes-timetable-announcements-pay-fees-contact-teacher-teacher-admin",
+      "title": "Create the Student Dashboard page as a list of navigable tiles/cards with the following destinations: Notes, Timetable, Announcements, Pay Fees, Contact Teacher, Teacher Admin.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-notes-screen-showing-a-simple-list-of-available-notes-items-class-8-maths-pdf-class-9-science-pdf-class-10-english-pdf",
+      "title": "Implement the Notes screen showing a simple list of available notes items: “Class 8 Maths – PDF”, “Class 9 Science – PDF”, “Class 10 English – PDF”.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-timetable-screen-showing-the-weekly-schedule-lines-monday-maths-4-00-pm-tuesday-science-5-00-pm-wednesday-english-4-30-pm",
+      "title": "Implement the Timetable screen showing the weekly schedule lines: “Monday – Maths – 4:00 PM”, “Tuesday – Science – 5:00 PM”, “Wednesday – English – 4:30 PM”.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-announcements-screen-displaying-test-on-friday-and-fees-due-by-10th",
+      "title": "Implement the Announcements screen displaying: “Test on Friday” and “Fees due by 10th”.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-pay-fees-screen-with-a-button-that-opens-the-provided-upi-deep-link-in-a-new-browser-tab-window-upi-pay-pa-yourupi-bank-pn-tuition-am-500-cu-inr",
+      "title": "Implement the Pay Fees screen with a button that opens the provided UPI deep link in a new browser tab/window: upi://pay?pa=yourupi@bank&pn=Tuition&am=500&cu=INR.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-contact-teacher-screen-with-a-button-that-opens-the-provided-whatsapp-url-in-a-new-tab-window-https-wa-me-919999999999",
+      "title": "Implement the Contact Teacher screen with a button that opens the provided WhatsApp URL in a new tab/window: https://wa.me/919999999999.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-teacher-admin-screen-showing-three-admin-options-upload-notes-update-timetable-post-announcement-for-this-initial-version-these-can-be-non-functional-items-but-must-have-clear-placeholder-interactions-e-g-open-a-modal-or-navigate-to-a-stub-form-page",
+      "title": "Implement the Teacher Admin screen showing three admin options: “Upload Notes”, “Update Timetable”, “Post Announcement”. For this initial version, these can be non-functional items but must have clear placeholder interactions (e.g., open a modal or navigate to a stub form page).",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-coherent-distinctive-education-themed-visual-design-across-all-pages-colors-typography-spacing-and-components-avoiding-a-blue-purple-primary-palette-keep-styling-consistent-and-use-the-existing-ui-component-library-by-composition-do-not-edit-read-only-ui-component-sources",
+      "title": "Apply a coherent, distinctive education-themed visual design across all pages (colors, typography, spacing, and components), avoiding a blue/purple primary palette. Keep styling consistent and use the existing UI component library by composition (do not edit read-only UI component sources).",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-pay-fees-screen-to-allow-parents-to-enter-a-custom-fee-amount-not-fixed-before-initiating-payment-via-upi-apps",
+      "title": "Update the Pay Fees screen to allow parents to enter a custom fee amount (not fixed) before initiating payment via UPI apps.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-when-generating-the-upi-payment-deep-link-on-the-pay-fees-screen-set-the-upi-payee-name-pn-to-bansal-tution-classes-and-set-the-amount-am-to-the-user-entered-amount",
+      "title": "When generating the UPI payment deep link on the Pay Fees screen, set the UPI payee name (pn) to \"Bansal Tution Classes\" and set the amount (am) to the user-entered amount.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-basic-validation-and-user-feedback-on-the-pay-fees-screen-so-that-payment-cannot-be-initiated-with-an-empty-zero-or-invalid-non-numeric-amount",
+      "title": "Add basic validation and user feedback on the Pay Fees screen so that payment cannot be initiated with an empty, zero, or invalid (non-numeric) amount.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-admin-ui-screen-for-payment-settings-that-lets-the-teacher-admin-view-and-update-the-payment-receiving-account-details-at-minimum-upi-vpa-id-for-pa-and-payee-name-for-pn-and-save-them-to-the-backend",
+      "title": "Add an Admin UI screen for Payment Settings that lets the teacher/admin view and update the payment receiving account details (at minimum: UPI VPA/ID for `pa` and payee name for `pn`) and save them to the backend.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-pay-fees-screen-to-use-the-latest-teacher-configured-payment-settings-from-the-backend-when-generating-the-upi-deep-link-instead-of-hardcoding-pa-yourupi-bank-and-pn-bansal-tution-classes",
+      "title": "Update the Pay Fees screen to use the latest teacher-configured payment settings from the backend when generating the UPI deep link, instead of hardcoding `pa=yourupi@bank` and `pn=Bansal Tution Classes`.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-admin-timetable-editor-screen-that-allows-the-teacher-admin-to-add-edit-and-remove-timetable-entries-day-subject-time-and-save-them-to-the-backend",
+      "title": "Add an Admin Timetable Editor screen that allows the teacher/admin to add, edit, and remove timetable entries (day, subject, time) and save them to the backend.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-timetable-screen-to-render-timetable-data-fetched-from-the-backend-teacher-managed-instead-of-the-current-hardcoded-schedule-array",
+      "title": "Update the Timetable screen to render timetable data fetched from the backend (teacher-managed) instead of the current hardcoded `schedule` array.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Login screen (name + password) and navigation to home dashboard",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Student dashboard with menu navigation to Notes, Timetable, Announcements, Pay Fees, Contact Teacher, and Teacher Admin screens",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Notes screen listing available class notes (e.g., PDFs)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Timetable screen showing weekly class schedule",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Announcements screen displaying notices",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Pay Fees screen launching UPI payment intent (deep link)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Contact Teacher screen launching WhatsApp chat link",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Teacher Admin screen with options to upload notes, update timetable, and post announcements",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Update Pay Fees: pay via UPI apps directly to teacher account; set payee name to \"Bansal Tution Classes\" and allow parents to enter a custom fee amount (not fixed) before launching UPI intent",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Teacher/Admin can update payment settings (change/add their own payment account details, e.g., Razorpay payment link) used by the Pay Fees screen",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Teacher/Admin can create/update the timetable from within the app (timetable editor) rather than using only hardcoded schedule content",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Persist teacher-managed payment settings in the Motoko backend so the teacher/admin can add or change the payment receiving account details used by the Pay Fees screen.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Persist a teacher-managed timetable in the Motoko backend so the teacher/admin can adjust the timetable from within the app and students see the updated timetable.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Bansal Tution Classes",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,23 @@
+{
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, defining all routes including new admin routes for payment settings and timetable editor with session guards and layout wrappers, plus ThemeProvider integration.",
+  "frontend/src/hooks/useLocalSession.ts": "Custom React hook managing local session state with localStorage persistence, providing login/logout functions and authentication status for the tuition app.",
+  "frontend/src/components/RequireSession.tsx": "Route guard component that redirects unauthenticated users to the login page and shows a loading state during session initialization.",
+  "frontend/src/components/AppLayout.tsx": "Shared layout wrapper providing consistent header with logo, welcome message, back navigation, logout button, main content area, and footer with Caffeine attribution.",
+  "frontend/src/pages/LoginPage.tsx": "Login page with name and password inputs, form validation that disables submit until both fields are filled, and navigation to dashboard on successful login.",
+  "frontend/src/pages/StudentDashboardPage.tsx": "Dashboard page displaying six navigation tiles (Notes, Timetable, Announcements, Pay Fees, Contact Teacher, Teacher Admin) with hero image, icons, descriptions, and hover effects.",
+  "frontend/src/pages/NotesPage.tsx": "Notes listing page showing three class notes with click handlers that display toast notifications indicating files are not yet available.",
+  "frontend/src/pages/TimetablePage.tsx": "Timetable display page fetching entries from backend via React Query, showing color-coded cards with day/subject/time/teacher/classroom info, with loading and empty states.",
+  "frontend/src/pages/AnnouncementsPage.tsx": "Announcements page listing two important notices (test and fees reminder) in card format with bell icons.",
+  "frontend/src/pages/PayFeesPage.tsx": "Payment page with user-editable fee amount input, dynamic UPI deep link generation using backend-fetched payment settings, loading state while settings load, validation, and fallback display with copy functionality.",
+  "frontend/src/pages/ContactTeacherPage.tsx": "Contact page with WhatsApp button opening wa.me link, fallback anchor link display when popup is blocked, and toast notifications.",
+  "frontend/src/pages/TeacherAdminPage.tsx": "Teacher admin dashboard with three action cards (Upload Notes, Payment Settings, Update Timetable) using TanStack Router navigation to link to admin screens, with coming-soon state for unimplemented features.",
+  "frontend/index.css": "Global styles with OKLCH color system defining education-themed teal/green palette (avoiding blue/purple) for both light and dark modes, with semantic color tokens.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending the theme with Inter font family, OKLCH color mappings, custom border radius, shadows, and animation keyframes.",
+  "frontend/src/main.tsx": "Application entry point that sets up React Query, Internet Identity provider, and renders the App component with correct CSS import path from same directory.",
+  "frontend/src/index.css": "Global styles with OKLCH color system defining education-themed teal/green palette (avoiding blue/purple) for both light and dark modes, with semantic color tokens.",
+  "frontend/src/hooks/usePaymentSettings.ts": "React Query hooks for fetching and saving payment settings with adapters to convert between backend PaymentSettings format and UI-friendly UPI format (pa/pn fields) with safe defaults.",
+  "frontend/src/hooks/useTimetable.ts": "React Query hooks for fetching and saving timetable entries with conversion utilities between backend Lesson format and UI-friendly TimetableEntry format including time parsing and formatting.",
+  "frontend/src/components/AccessDeniedScreen.tsx": "Reusable access denied screen component displaying a shield icon, error message, and return-to-dashboard button for unauthorized users attempting to access admin-only pages.",
+  "frontend/src/pages/admin/PaymentSettingsPage.tsx": "Admin page for editing UPI payment settings (pa/pn fields) with form validation, loading states, admin access control, and success/error toast notifications using shadcn-ui components.",
+  "frontend/src/pages/admin/TimetableEditorPage.tsx": "Admin page for managing timetable entries with add/edit/remove functionality, form validation for required fields, admin access control, and save operation with toast notifications."
+}

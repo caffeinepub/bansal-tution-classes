@@ -1,0 +1,91 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-add-an-admin-ui-screen-for-payment-settings-that-lets-the-teacher-admin-view-and-update-the-payment-receiving-account-details-at-minimum-upi-vpa-id-for-pa-and-payee-name-for-pn-and-save-them-to-the-backend",
+      "featureTitle": "Add an Admin UI screen for Payment Settings that lets the teacher/admin view and update the payment receiving account details (at minimum: UPI VPA/ID for `pa` and payee name for `pn`) and save them to the backend.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AccessDeniedScreen.tsx",
+        "frontend/src/hooks/usePaymentSettings.ts",
+        "frontend/src/pages/TeacherAdminPage.tsx",
+        "frontend/src/pages/admin/PaymentSettingsPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-15"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-pay-fees-screen-to-use-the-latest-teacher-configured-payment-settings-from-the-backend-when-generating-the-upi-deep-link-instead-of-hardcoding-pa-yourupi-bank-and-pn-bansal-tution-classes",
+      "featureTitle": "Update the Pay Fees screen to use the latest teacher-configured payment settings from the backend when generating the UPI deep link, instead of hardcoding `pa=yourupi@bank` and `pn=Bansal Tution Classes`.",
+      "files": [
+        "frontend/src/hooks/usePaymentSettings.ts",
+        "frontend/src/pages/PayFeesPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-16"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-admin-timetable-editor-screen-that-allows-the-teacher-admin-to-add-edit-and-remove-timetable-entries-day-subject-time-and-save-them-to-the-backend",
+      "featureTitle": "Add an Admin Timetable Editor screen that allows the teacher/admin to add, edit, and remove timetable entries (day, subject, time) and save them to the backend.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AccessDeniedScreen.tsx",
+        "frontend/src/hooks/useTimetable.ts",
+        "frontend/src/pages/TeacherAdminPage.tsx",
+        "frontend/src/pages/admin/TimetableEditorPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-18"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-timetable-screen-to-render-timetable-data-fetched-from-the-backend-teacher-managed-instead-of-the-current-hardcoded-schedule-array",
+      "featureTitle": "Update the Timetable screen to render timetable data fetched from the backend (teacher-managed) instead of the current hardcoded `schedule` array.",
+      "files": [
+        "frontend/src/hooks/useTimetable.ts",
+        "frontend/src/pages/TimetablePage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-19"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

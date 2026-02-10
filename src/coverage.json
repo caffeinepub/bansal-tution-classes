@@ -1,0 +1,123 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-10T11:21:42.102Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 6,
+    "implemented": 4,
+    "items": [
+      {
+        "id": "REQ-14",
+        "summary": "Persist teacher-managed payment settings in the Motoko backend so the teacher/admin can add or change the payment receiving account details used by the Pay Fees screen.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-15",
+        "summary": "Add an Admin UI screen for Payment Settings that lets the teacher/admin view and update the payment receiving account details (at minimum: UPI VPA/ID for `pa` and payee name for `pn`) and save them to the backend.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/admin/PaymentSettingsPage.tsx",
+          "frontend/src/hooks/usePaymentSettings.ts",
+          "frontend/src/components/AccessDeniedScreen.tsx",
+          "frontend/src/pages/TeacherAdminPage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/admin/PaymentSettingsPage.tsx",
+          "frontend/src/hooks/usePaymentSettings.ts",
+          "frontend/src/components/AccessDeniedScreen.tsx",
+          "frontend/src/pages/TeacherAdminPage.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-16",
+        "summary": "Update the Pay Fees screen to use the latest teacher-configured payment settings from the backend when generating the UPI deep link, instead of hardcoding `pa=yourupi@bank` and `pn=Bansal Tution Classes`.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/PayFeesPage.tsx",
+          "frontend/src/hooks/usePaymentSettings.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/PayFeesPage.tsx",
+          "frontend/src/hooks/usePaymentSettings.ts"
+        ]
+      },
+      {
+        "id": "REQ-17",
+        "summary": "Persist a teacher-managed timetable in the Motoko backend so the teacher/admin can adjust the timetable from within the app and students see the updated timetable.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-18",
+        "summary": "Add an Admin Timetable Editor screen that allows the teacher/admin to add, edit, and remove timetable entries (day, subject, time) and save them to the backend.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/admin/TimetableEditorPage.tsx",
+          "frontend/src/hooks/useTimetable.ts",
+          "frontend/src/pages/TeacherAdminPage.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/components/AccessDeniedScreen.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/admin/TimetableEditorPage.tsx",
+          "frontend/src/hooks/useTimetable.ts",
+          "frontend/src/pages/TeacherAdminPage.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/components/AccessDeniedScreen.tsx"
+        ]
+      },
+      {
+        "id": "REQ-19",
+        "summary": "Update the Timetable screen to render timetable data fetched from the backend (teacher-managed) instead of the current hardcoded `schedule` array.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/TimetablePage.tsx",
+          "frontend/src/hooks/useTimetable.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/TimetablePage.tsx",
+          "frontend/src/hooks/useTimetable.ts"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/authorization/MixinAuthorization.mo",
+    "backend/authorization/access-control.mo",
+    "backend/main.mo",
+    "backend/migration.mo",
+    "build-request.json",
+    "caffeine.lock.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/App.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/AccessDeniedScreen.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/usePaymentSettings.ts",
+    "frontend/src/hooks/useTimetable.ts",
+    "frontend/src/pages/PayFeesPage.tsx",
+    "frontend/src/pages/TeacherAdminPage.tsx",
+    "frontend/src/pages/TimetablePage.tsx",
+    "frontend/src/pages/admin/PaymentSettingsPage.tsx",
+    "frontend/src/pages/admin/TimetableEditorPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

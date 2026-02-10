@@ -1,0 +1,127 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Teacher admin payment settings and editable timetable (frontend)",
+  "requirements": [
+    {
+      "id": "REQ-15",
+      "summary": "Add an Admin Payment Settings screen to view/edit UPI receiver details and save to backend",
+      "acceptanceCriteria": [
+        "Teacher Admin area includes a clear navigation option to a new Payment Settings screen (not a placeholder modal).",
+        "Payment Settings screen loads the current payment settings from the backend and populates the form.",
+        "Teacher/admin can edit the UPI VPA/ID (`pa`) and payee name (`pn`) and save changes.",
+        "On successful save, show an English success message/toast and the new settings remain after page refresh.",
+        "Basic validation prevents saving empty/invalid values and shows an English error message near the relevant field(s)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/PaymentSettingsPage.tsx",
+          "operation": "create",
+          "description": "Create the Payment Settings admin page UI: fetch current settings via the backend actor, populate editable fields for `pa` and `pn`, validate inputs, save via backend, and show success/error toasts. Use shadcn-ui form primitives (e.g., Input/Label/Button and toast via sonner) for consistent UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/usePaymentSettings.ts",
+          "operation": "create",
+          "description": "Add React Query hooks to load and save payment settings using the existing core-infrastructure actor wiring (useActor). Include a small adapter that maps backend PaymentSettings fields to the UI's `pa`/`pn` concept (and provides safe defaults compatible with the existing UPI deep-link flow). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/AccessDeniedScreen.tsx",
+          "operation": "create",
+          "description": "Add a small reusable screen/component that shows an English 'Access denied' message for non-admin users. Use it in admin-only pages by checking admin status via the authorization-enabled backend actor. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/TeacherAdminPage.tsx",
+          "operation": "modify",
+          "description": "Replace the placeholder modal behavior with clear navigation actions that link to the new Payment Settings screen (and keep any not-yet-implemented actions clearly labeled as coming soon without modal placeholders). Use tanstack router navigation. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register a new route for the Payment Settings screen under the existing session-protected app layout (e.g., /admin/payment-settings) so it is reachable from Teacher Admin navigation. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "summary": "Update Pay Fees screen to generate the UPI deep link using the latest backend payment settings with loading and fallback behavior",
+      "acceptanceCriteria": [
+        "Pay Fees screen fetches payment settings from backend and uses them when generating the payment URI.",
+        "If settings are still loading, the Pay Fees screen shows a reasonable loading state and does not generate a broken link.",
+        "If backend has no configured settings, the Pay Fees screen continues to work using the existing default behavior.",
+        "The amount-entry validation behavior already present on the Pay Fees screen continues to work as before."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/PayFeesPage.tsx",
+          "operation": "modify",
+          "description": "Fetch payment settings via the shared payment settings hook and use them to build the UPI URI instead of hardcoded `pa`/`pn`. Add a loading state while settings are being fetched, and fall back to the existing hardcoded defaults if settings are missing/invalid. Keep the current amount validation unchanged. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/usePaymentSettings.ts",
+          "operation": "modify",
+          "description": "Extend the payment settings hook to expose a loading-safe, validated view of the settings for Pay Fees (including sensible defaults when backend returns empty/unset values) while still allowing admin edits to persist. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-18",
+      "summary": "Add an Admin Timetable Editor screen to add/edit/remove timetable entries and save to backend",
+      "acceptanceCriteria": [
+        "Teacher Admin area includes a clear navigation option to a new Timetable Editor screen (not a placeholder modal).",
+        "Timetable Editor loads current timetable entries from the backend and displays them in an editable form/list.",
+        "Teacher/admin can add new entries, edit existing entries, and remove entries.",
+        "Saving writes the updated timetable to the backend and shows an English success message/toast.",
+        "Basic validation prevents saving entries with missing day/subject/time and shows English error text."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/TimetableEditorPage.tsx",
+          "operation": "create",
+          "description": "Create the Timetable Editor admin page: load timetable entries from backend, render an editable list, support add/edit/remove, validate required fields (day/subject/time), and save the updated list back to backend with an English success toast. Compose shadcn-ui building blocks (inputs/buttons/cards) without editing frontend/src/components/ui sources. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useTimetable.ts",
+          "operation": "create",
+          "description": "Add React Query hooks to fetch and save the timetable through the existing backend actor (useActor). Include UI-friendly adapters to map between the backend Lesson shape and the editor's day/subject/time inputs. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/TeacherAdminPage.tsx",
+          "operation": "modify",
+          "description": "Add a clear navigation option from Teacher Admin to the new Timetable Editor screen (e.g., /admin/timetable-editor) and remove any 'feature not implemented' modal for this action. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register a new session-protected route for the Timetable Editor screen under the admin area so it can be navigated to from Teacher Admin. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/AccessDeniedScreen.tsx",
+          "operation": "modify",
+          "description": "Ensure the AccessDeniedScreen can be reused by the Timetable Editor page (and other admin pages) when the authorization system indicates the caller is not an admin. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-19",
+      "summary": "Update Timetable screen to render backend-fetched timetable data with loading and empty states",
+      "acceptanceCriteria": [
+        "Timetable screen fetches timetable entries from the backend and displays them in the existing styled card format.",
+        "If timetable data is loading, the screen shows a reasonable loading state.",
+        "If backend returns an empty timetable, display an English empty-state message (e.g., 'No timetable has been set yet.').",
+        "After the teacher/admin updates the timetable via the editor, the Timetable screen reflects the changes after refresh (and ideally after navigation back)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/TimetablePage.tsx",
+          "operation": "modify",
+          "description": "Replace the hardcoded schedule array with data fetched from backend via the timetable hook. Preserve the existing styled card layout, add a loading state, and show an English empty state when no entries exist. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useTimetable.ts",
+          "operation": "modify",
+          "description": "Expose a query that returns timetable entries in a UI-ready format and ensure cache invalidation/refetch behavior supports seeing updates after saving in the editor (at least on refresh, ideally on navigation back). Verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}

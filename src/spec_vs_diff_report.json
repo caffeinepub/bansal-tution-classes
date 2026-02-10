@@ -1,0 +1,106 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-10T11:21:42.099Z",
+  "summary": "Diff adds backend methods and frontend pages/hooks for admin-managed payment settings and editable timetable, plus new admin routes and access-denied handling. Key gaps remain around stable persistence/defaults in backend and some frontend validation UX requirements.",
+  "missing_requirements": [
+    {
+      "id": "REQ-14",
+      "requirement": "Payment settings are stored in stable state so they remain after canister upgrades/redeploys.",
+      "reason": "Diff shows an in-memory `var paymentSettings` in `backend/main.mo`, but no stable variable declaration/evidence of stable storage for payment settings in the truncated content.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "requirement": "If no payment settings have been configured yet, backend returns sensible defaults compatible with the existing Pay Fees flow (UPI deep link).",
+      "reason": "Backend default values shown are a dummy `paymentId` and a URL, not UPI defaults for `pa` and `pn`. Frontend defaults exist, but requirement explicitly asks backend to return sensible defaults when not configured.",
+      "evidence": [
+        "backend/main.mo",
+        "backend/migration.mo",
+        "frontend/src/hooks/usePaymentSettings.ts"
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "requirement": "Backend exposes query method(s) to fetch the current payment settings.",
+      "reason": "The `getPaymentSettings` method is referenced by the frontend and the backend shows a truncated `public query ({ caller }) func get...`, but the diff summary truncation does not include the actual `getPaymentSettings` signature/body, so its existence/behavior is not fully evidenced.",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/hooks/usePaymentSettings.ts"
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "requirement": "Timetable is stored in stable state so it remains after canister upgrades/redeploys.",
+      "reason": "Diff shows `let timetable = Map.empty<Text, Lesson>();` and mutation methods, but no stable storage declaration/evidence for timetable state persistence.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "requirement": "If no timetable has been configured yet, backend returns defaults matching the current static timetable shown in the app.",
+      "reason": "Backend initializes timetable as an empty map and there is no evidence of default lessons matching the prior static schedule; `getTimetable` returns `timetable.values().toArray()` which would be empty initially.",
+      "evidence": [
+        "backend/main.mo",
+        "backend/migration.mo"
+      ]
+    },
+    {
+      "id": "REQ-18",
+      "requirement": "Basic validation prevents saving entries with missing day/subject/time and shows English error text near the relevant field(s).",
+      "reason": "Timetable editor validation uses a single toast error message and does not show field-level/near-field error text for missing day/subject/time.",
+      "evidence": [
+        "frontend/src/pages/admin/TimetableEditorPage.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Added URL/session parameter utilities including persisted parameters and functions intended for handling sensitive tokens in URL hash.",
+      "reason": "BuildRequest does not ask for URL parameter/sessionStorage utilities or token persistence helpers; this appears to be additional functionality beyond requested payment settings/timetable features.",
+      "evidence": [
+        "frontend/src/utils/urlParams.ts",
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "Backend payment settings modeled as `paymentId` and `paymentProviderUrl` with defaults like a dummy ID and `https://www.stoicwallet.com`.",
+      "reason": "BuildRequest specifically frames payment settings as UPI deep link parameters (`pa`, `pn`) for Pay Fees; introducing a provider URL/dummy payment ID is not requested and may be inconsistent with the requested UPI defaults behavior.",
+      "evidence": [
+        "backend/main.mo",
+        "backend/migration.mo",
+        "frontend/src/hooks/usePaymentSettings.ts"
+      ]
+    },
+    {
+      "description": "AccessDenied screen component and admin-check flow using `actor.isCallerAdmin()` to gate admin pages.",
+      "reason": "BuildRequest requires navigation to admin screens and editing capability, but does not explicitly require adding an access denied page or implementing new authorization UX flows.",
+      "evidence": [
+        "frontend/src/components/AccessDeniedScreen.tsx",
+        "frontend/src/pages/admin/PaymentSettingsPage.tsx",
+        "frontend/src/pages/admin/TimetableEditorPage.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.72,
+  "changed_files": [
+    "backend/main.mo",
+    "backend/migration.mo",
+    "frontend-file-summaries.txt",
+    "frontend/src/App.tsx",
+    "frontend/src/components/AccessDeniedScreen.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/usePaymentSettings.ts",
+    "frontend/src/hooks/useTimetable.ts",
+    "frontend/src/pages/PayFeesPage.tsx",
+    "frontend/src/pages/TeacherAdminPage.tsx",
+    "frontend/src/pages/TimetablePage.tsx",
+    "frontend/src/pages/admin/PaymentSettingsPage.tsx",
+    "frontend/src/pages/admin/TimetableEditorPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "project_state.json"
+  ]
+}
